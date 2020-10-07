@@ -49,6 +49,18 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kvC-Qp-fE1">
+                                <rect key="frame" x="139" y="456" width="136" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <state key="normal" title=" Copy link ">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="copyTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="btB-gy-etC"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -72,6 +84,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="M1p-yy-ghD"/>
                     <connections>
+                        <outlet property="copyButton" destination="kvC-Qp-fE1" id="8qL-0v-lUr"/>
                         <outlet property="shortLinkView" destination="q1z-1e-Dae" id="bMh-RZ-Fkb"/>
                         <outlet property="submitButton" destination="M0N-pQ-6ci" id="lf4-Ej-dme"/>
                         <outlet property="urlEntry" destination="awe-bh-JGl" id="k6f-zf-Nyb"/>
