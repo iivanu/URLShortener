@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="DYG-dI-UmS">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="URL_Shortener" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Enter link to short:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="faW-lA-Zjc">
+                                <rect key="frame" x="76" y="168" width="263" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter your link" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="awe-bh-JGl">
+                                <rect key="frame" x="76" y="210" width="263" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="URL" returnKeyType="continue" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="url"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M0N-pQ-6ci">
+                                <rect key="frame" x="156" y="252" width="103" height="44"/>
+                                <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <state key="normal" title="  Submit  ">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="submitTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="va2-GU-avb"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Short link" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="q1z-1e-Dae">
+                                <rect key="frame" x="76" y="414" width="263" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Short link:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PO6-qD-Xn4">
+                                <rect key="frame" x="76" y="372" width="263" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="faW-lA-Zjc" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="5Vf-Pn-A1c"/>
+                            <constraint firstItem="faW-lA-Zjc" firstAttribute="trailing" secondItem="awe-bh-JGl" secondAttribute="trailing" id="F6i-iF-cbM"/>
+                            <constraint firstItem="awe-bh-JGl" firstAttribute="top" secondItem="faW-lA-Zjc" secondAttribute="bottom" constant="8" id="HQs-As-T2w"/>
+                            <constraint firstItem="M0N-pQ-6ci" firstAttribute="top" secondItem="awe-bh-JGl" secondAttribute="bottom" constant="8" id="M42-bc-Azo"/>
+                            <constraint firstItem="PO6-qD-Xn4" firstAttribute="top" secondItem="M0N-pQ-6ci" secondAttribute="bottom" constant="76" id="SAT-0Y-Wkn"/>
+                            <constraint firstItem="M0N-pQ-6ci" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="156" id="WPn-6H-F06"/>
+                            <constraint firstItem="faW-lA-Zjc" firstAttribute="leading" secondItem="awe-bh-JGl" secondAttribute="leading" id="cEQ-7a-ZSa"/>
+                            <constraint firstItem="awe-bh-JGl" firstAttribute="leading" secondItem="PO6-qD-Xn4" secondAttribute="leading" id="cae-b4-oDu"/>
+                            <constraint firstItem="q1z-1e-Dae" firstAttribute="top" secondItem="PO6-qD-Xn4" secondAttribute="bottom" constant="8" id="eIY-3H-jrS"/>
+                            <constraint firstItem="awe-bh-JGl" firstAttribute="trailing" secondItem="PO6-qD-Xn4" secondAttribute="trailing" id="eLy-y9-wLX"/>
+                            <constraint firstItem="faW-lA-Zjc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="76" id="fXc-Kp-UbO"/>
+                            <constraint firstItem="faW-lA-Zjc" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="80" id="g2o-8Z-10b"/>
+                            <constraint firstItem="awe-bh-JGl" firstAttribute="centerX" secondItem="M0N-pQ-6ci" secondAttribute="centerX" id="hvi-Cw-K3x"/>
+                            <constraint firstItem="PO6-qD-Xn4" firstAttribute="trailing" secondItem="q1z-1e-Dae" secondAttribute="trailing" id="iwO-do-uek"/>
+                            <constraint firstItem="PO6-qD-Xn4" firstAttribute="leading" secondItem="q1z-1e-Dae" secondAttribute="leading" id="w6Z-sB-oGh"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="M1p-yy-ghD"/>
+                    <connections>
+                        <outlet property="shortLinkView" destination="q1z-1e-Dae" id="bMh-RZ-Fkb"/>
+                        <outlet property="submitButton" destination="M0N-pQ-6ci" id="lf4-Ej-dme"/>
+                        <outlet property="urlEntry" destination="awe-bh-JGl" id="k6f-zf-Nyb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1047.8260869565217" y="103.79464285714285"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="16l-t8-a52">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="DYG-dI-UmS" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="mvk-ek-G3f">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="bdQ-PY-e8M"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DIT-gp-EwY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="137.68115942028987" y="103.79464285714285"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="opaqueSeparatorColor">
+            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
