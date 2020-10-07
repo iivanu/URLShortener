@@ -27,7 +27,10 @@ class ViewController: UIViewController {
     }
     
     @IBAction func submitTapped(_ sender: Any) {
-        guard let longURL = urlEntry.text else { return }
+        guard var longURL = urlEntry.text else { return }
+        if !longURL.hasPrefix("https://") {
+            longURL = "https://" + longURL
+        }
         let json: [String: Any] = ["long_url": longURL, "domain": "bit.ly"]
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
 
