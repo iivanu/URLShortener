@@ -14,8 +14,8 @@ class ViewController: UIViewController {
     @IBOutlet var shortLinkView: UITextField!
     @IBOutlet var submitButton: UIButton!
     @IBOutlet var copyButton: UIButton!
+    @IBOutlet var openPageButton: UIButton!
     var shortLink: String?
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +23,7 @@ class ViewController: UIViewController {
         title = "URL shortener"
         submitButton.layer.cornerRadius = 10
         copyButton.layer.cornerRadius = 10
+        openPageButton.layer.cornerRadius = 10
     }
     
     @IBAction func submitTapped(_ sender: Any) {
@@ -66,6 +67,12 @@ class ViewController: UIViewController {
         guard shortLink != nil else { return }
         UIPasteboard.general.string = shortLink
         showAlert(title: "Short URL is generated and copied to clipboard", message: shortLink)
+    }
+    
+    @IBAction func openPageTapped(_ sender: Any) {
+        guard shortLink != nil else { return }
+        guard let url = URL(string: shortLink!) else { return }
+        UIApplication.shared.open(url)
     }
     
     func showAlert(title: String, message: String?) {

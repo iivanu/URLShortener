@@ -24,12 +24,18 @@
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter your link" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="awe-bh-JGl">
                                 <rect key="frame" x="76" y="210" width="263" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="34" id="vpj-K1-L1m"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="URL" returnKeyType="continue" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="url"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M0N-pQ-6ci">
                                 <rect key="frame" x="156" y="252" width="103" height="44"/>
                                 <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="6il-SU-CFH"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                 <state key="normal" title="  Submit  ">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -40,6 +46,9 @@
                             </button>
                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Short link" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="q1z-1e-Dae">
                                 <rect key="frame" x="76" y="414" width="263" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="34" id="tya-gP-PsD"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -49,10 +58,12 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kvC-Qp-fE1">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kvC-Qp-fE1">
                                 <rect key="frame" x="139" y="456" width="136" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="ajz-n2-5Th"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                 <state key="normal" title=" Copy link ">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -61,30 +72,49 @@
                                     <action selector="copyTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="btB-gy-etC"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LF2-TA-UZ9">
+                                <rect key="frame" x="139" y="516" width="136" height="44"/>
+                                <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <state key="normal" title="Open page">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="openPageTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cCJ-Bj-aNa"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="faW-lA-Zjc" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="5Vf-Pn-A1c"/>
-                            <constraint firstItem="faW-lA-Zjc" firstAttribute="trailing" secondItem="awe-bh-JGl" secondAttribute="trailing" id="F6i-iF-cbM"/>
-                            <constraint firstItem="awe-bh-JGl" firstAttribute="top" secondItem="faW-lA-Zjc" secondAttribute="bottom" constant="8" id="HQs-As-T2w"/>
-                            <constraint firstItem="M0N-pQ-6ci" firstAttribute="top" secondItem="awe-bh-JGl" secondAttribute="bottom" constant="8" id="M42-bc-Azo"/>
-                            <constraint firstItem="PO6-qD-Xn4" firstAttribute="top" secondItem="M0N-pQ-6ci" secondAttribute="bottom" constant="76" id="SAT-0Y-Wkn"/>
-                            <constraint firstItem="M0N-pQ-6ci" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="156" id="WPn-6H-F06"/>
-                            <constraint firstItem="faW-lA-Zjc" firstAttribute="leading" secondItem="awe-bh-JGl" secondAttribute="leading" id="cEQ-7a-ZSa"/>
-                            <constraint firstItem="awe-bh-JGl" firstAttribute="leading" secondItem="PO6-qD-Xn4" secondAttribute="leading" id="cae-b4-oDu"/>
-                            <constraint firstItem="q1z-1e-Dae" firstAttribute="top" secondItem="PO6-qD-Xn4" secondAttribute="bottom" constant="8" id="eIY-3H-jrS"/>
-                            <constraint firstItem="awe-bh-JGl" firstAttribute="trailing" secondItem="PO6-qD-Xn4" secondAttribute="trailing" id="eLy-y9-wLX"/>
-                            <constraint firstItem="faW-lA-Zjc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="76" id="fXc-Kp-UbO"/>
-                            <constraint firstItem="faW-lA-Zjc" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="80" id="g2o-8Z-10b"/>
-                            <constraint firstItem="awe-bh-JGl" firstAttribute="centerX" secondItem="M0N-pQ-6ci" secondAttribute="centerX" id="hvi-Cw-K3x"/>
-                            <constraint firstItem="PO6-qD-Xn4" firstAttribute="trailing" secondItem="q1z-1e-Dae" secondAttribute="trailing" id="iwO-do-uek"/>
-                            <constraint firstItem="PO6-qD-Xn4" firstAttribute="leading" secondItem="q1z-1e-Dae" secondAttribute="leading" id="w6Z-sB-oGh"/>
+                            <constraint firstItem="kvC-Qp-fE1" firstAttribute="trailing" secondItem="LF2-TA-UZ9" secondAttribute="trailing" id="1Wo-7u-jxl"/>
+                            <constraint firstItem="faW-lA-Zjc" firstAttribute="leading" secondItem="awe-bh-JGl" secondAttribute="leading" id="4hR-UK-fFQ"/>
+                            <constraint firstItem="kvC-Qp-fE1" firstAttribute="top" secondItem="q1z-1e-Dae" secondAttribute="bottom" constant="8" id="9yY-Oi-KVo"/>
+                            <constraint firstItem="awe-bh-JGl" firstAttribute="centerX" secondItem="M0N-pQ-6ci" secondAttribute="centerX" id="Dvv-uR-gZe"/>
+                            <constraint firstItem="PO6-qD-Xn4" firstAttribute="top" secondItem="M0N-pQ-6ci" secondAttribute="bottom" constant="76" id="LYL-8S-mFG"/>
+                            <constraint firstItem="M0N-pQ-6ci" firstAttribute="top" secondItem="awe-bh-JGl" secondAttribute="bottom" constant="8" id="SgT-EQ-alm"/>
+                            <constraint firstItem="kvC-Qp-fE1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="139" id="Sin-eO-z3e"/>
+                            <constraint firstItem="faW-lA-Zjc" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="80" id="VNL-gZ-xNs"/>
+                            <constraint firstItem="faW-lA-Zjc" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="VaJ-hs-528"/>
+                            <constraint firstItem="faW-lA-Zjc" firstAttribute="trailing" secondItem="awe-bh-JGl" secondAttribute="trailing" id="W7b-8u-kve"/>
+                            <constraint firstItem="awe-bh-JGl" firstAttribute="top" secondItem="faW-lA-Zjc" secondAttribute="bottom" constant="8" id="ZJu-4Y-tKP"/>
+                            <constraint firstItem="PO6-qD-Xn4" firstAttribute="leading" secondItem="q1z-1e-Dae" secondAttribute="leading" id="ZnA-Bl-AGH"/>
+                            <constraint firstItem="awe-bh-JGl" firstAttribute="leading" secondItem="PO6-qD-Xn4" secondAttribute="leading" id="dmG-d1-x1P"/>
+                            <constraint firstItem="LF2-TA-UZ9" firstAttribute="top" secondItem="kvC-Qp-fE1" secondAttribute="bottom" constant="16" id="fX2-7k-tpx"/>
+                            <constraint firstItem="q1z-1e-Dae" firstAttribute="top" secondItem="PO6-qD-Xn4" secondAttribute="bottom" constant="8" id="ftH-sB-2Vh"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="LF2-TA-UZ9" secondAttribute="bottom" constant="302" id="hjX-gf-Ru5"/>
+                            <constraint firstItem="kvC-Qp-fE1" firstAttribute="leading" secondItem="LF2-TA-UZ9" secondAttribute="leading" id="lgi-UR-7cN"/>
+                            <constraint firstItem="faW-lA-Zjc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="76" id="uX4-Ep-bwc"/>
+                            <constraint firstItem="M0N-pQ-6ci" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="156" id="udl-bg-2wq"/>
+                            <constraint firstItem="q1z-1e-Dae" firstAttribute="centerX" secondItem="kvC-Qp-fE1" secondAttribute="centerX" id="w1T-WA-Bap"/>
+                            <constraint firstItem="PO6-qD-Xn4" firstAttribute="trailing" secondItem="q1z-1e-Dae" secondAttribute="trailing" id="yIF-cY-r4U"/>
+                            <constraint firstItem="awe-bh-JGl" firstAttribute="trailing" secondItem="PO6-qD-Xn4" secondAttribute="trailing" id="ywM-ar-536"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="M1p-yy-ghD"/>
                     <connections>
                         <outlet property="copyButton" destination="kvC-Qp-fE1" id="8qL-0v-lUr"/>
+                        <outlet property="openPageButton" destination="LF2-TA-UZ9" id="ZIz-V3-BA3"/>
                         <outlet property="shortLinkView" destination="q1z-1e-Dae" id="bMh-RZ-Fkb"/>
                         <outlet property="submitButton" destination="M0N-pQ-6ci" id="lf4-Ej-dme"/>
                         <outlet property="urlEntry" destination="awe-bh-JGl" id="k6f-zf-Nyb"/>
