@@ -21,6 +21,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         title = "URL shortener"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareTapped))
         submitButton.layer.cornerRadius = 10
         copyButton.layer.cornerRadius = 10
         openPageButton.layer.cornerRadius = 10
@@ -82,6 +83,13 @@ class ViewController: UIViewController {
         let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "OK", style: .default))
         present(ac, animated: true)
+    }
+    
+    @objc func shareTapped() {
+        guard shortLink != nil else { return }
+        let vc = UIActivityViewController(activityItems: ["Here is my short link:\n\(shortLink!)"], applicationActivities: [])
+        vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        present(vc, animated: true)
     }
 }
 
