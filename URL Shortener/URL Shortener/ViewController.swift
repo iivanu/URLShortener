@@ -9,13 +9,13 @@ import UIKit
 
 class ViewController: UIViewController {
     @IBOutlet var urlEntry: UITextField!
-    let token = "c798d97ad43267d09a2eab588a954fc52c0f84a4"
-    let apiURL = URL(string: "https://api-ssl.bitly.com/v4/shorten")!
     @IBOutlet var shortLinkView: UITextField!
     @IBOutlet var submitButton: UIButton!
     @IBOutlet var copyButton: UIButton!
     @IBOutlet var openPageButton: UIButton!
-    var shortLink: String?
+    
+    var OKresponse: ResponseDataOK?
+    var notOKResponse: ResponseDataNotOK?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,20 +47,14 @@ class ViewController: UIViewController {
                 self?.showAlert(title: "Error", message: error?.localizedDescription)
                 return
             }
-            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-            if let responseJSON = responseJSON as? [String: Any] {
-                if let link = responseJSON["link"] as? String {
-                    DispatchQueue.main.async {
-                        self?.shortLink = link
-                        self?.shortLinkView.text = link
-                        self?.reloadInputViews()
-                    }
-                } else {
-                    if let error = responseJSON["message"] as? String, let description = responseJSON["description"] as? String  {
-                        DispatchQueue.main.async {
-                            self?.showAlert(title: error, message: description)
-                        }
-                    }
+            if self!.parseIsDataOK(data: data) {
+                DispatchQueue.main.async {
+                    self?.shortLinkView.text = self?.OKresponse?.link
+                    self?.reloadInputViews()
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self?.showAlert(title: self?.notOKResponse?.message, message: self?.notOKResponse?.description)
                 }
             }
         }
@@ -68,28 +62,41 @@ class ViewController: UIViewController {
     }
     
     @IBAction func copyTapped(_ sender: Any) {
-        guard shortLink != nil else { return }
-        UIPasteboard.general.string = shortLink
-        showAlert(title: "Short URL is generated and copied to clipboard", message: shortLink)
+        guard let link = OKresponse?.link else { return }
+        UIPasteboard.general.string = link
+        showAlert(title: "Short URL is generated and copied to clipboard", message: link)
     }
     
     @IBAction func openPageTapped(_ sender: Any) {
-        guard shortLink != nil else { return }
-        guard let url = URL(string: shortLink!) else { return }
+        guard let link = OKresponse?.link else { return }
+        guard let url = URL(string: link) else { return }
         UIApplication.shared.open(url)
     }
     
-    func showAlert(title: String, message: String?) {
+    func showAlert(title: String?, message: String?) {
         let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "OK", style: .default))
         present(ac, animated: true)
     }
     
     @objc func shareTapped() {
-        guard shortLink != nil else { return }
-        let vc = UIActivityViewController(activityItems: ["Here is my short link:\n\(shortLink!)"], applicationActivities: [])
+        guard let link = OKresponse?.link else { return }
+        let vc = UIActivityViewController(activityItems: ["Here is my short link:\n\(link)"], applicationActivities: [])
         vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
         present(vc, animated: true)
+    }
+    
+    func parseIsDataOK(data: Data) -> Bool {
+        let decoder = JSONDecoder()
+        
+        if let jsonResponse = try? decoder.decode(ResponseDataOK.self, from: data) {
+            OKresponse = jsonResponse
+            return true
+        } else if let jsonResponse = try? decoder.decode(ResponseDataNotOK.self, from: data) {
+            notOKResponse = jsonResponse
+        }
+        
+        return false
     }
 }
 
