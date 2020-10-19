@@ -28,37 +28,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func submitTapped(_ sender: Any) {
-        guard var longURL = urlEntry.text else { return }
-        if !longURL.hasPrefix("https://") {
-            longURL = "https://" + longURL
-        }
-        let json: [String: Any] = ["long_url": longURL, "domain": "bit.ly"]
-        let jsonData = try? JSONSerialization.data(withJSONObject: json)
-
-        var request = URLRequest(url: apiURL)
-        request.httpMethod = "POST"
-        request.httpBody = jsonData
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue( "Bearer \(token)", forHTTPHeaderField: "Authorization")
-
-        let task = URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
-            guard let data = data, error == nil else {
-                self?.showAlert(title: "Error", message: error?.localizedDescription)
-                return
-            }
-            if self!.parseIsDataOK(data: data) {
-                DispatchQueue.main.async {
-                    self?.shortLinkView.text = self?.OKresponse?.link
-                    self?.reloadInputViews()
-                }
-            } else {
-                DispatchQueue.main.async {
-                    self?.showAlert(title: self?.notOKResponse?.message, message: self?.notOKResponse?.description)
-                }
-            }
-        }
-        task.resume()
+        fetchData(longURL: urlEntry.text)
     }
     
     @IBAction func copyTapped(_ sender: Any) {
@@ -97,6 +67,44 @@ class ViewController: UIViewController {
         }
         
         return false
+    }
+    
+    func fetchData(longURL: String?) {
+        guard var longURL = longURL else { return }
+        if longURL == "" {
+            showAlert(title: "URL is empty!", message: "Please enter valid URL.")
+            return
+        }
+        if !longURL.hasPrefix("https://") {
+            longURL = "https://" + longURL
+        }
+        let json: [String: Any] = ["long_url": longURL, "domain": "bit.ly"]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+
+        var request = URLRequest(url: apiURL)
+        request.httpMethod = "POST"
+        request.httpBody = jsonData
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.setValue( "Bearer \(token)", forHTTPHeaderField: "Authorization")
+
+        let task = URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
+            guard let data = data, error == nil else {
+                self?.showAlert(title: "Error", message: error?.localizedDescription)
+                return
+            }
+            if self!.parseIsDataOK(data: data) {
+                DispatchQueue.main.async {
+                    self?.shortLinkView.text = self?.OKresponse?.link
+                    self?.reloadInputViews()
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self?.showAlert(title: self?.notOKResponse?.message, message: self?.notOKResponse?.description)
+                }
+            }
+        }
+        task.resume()
     }
 }
 
