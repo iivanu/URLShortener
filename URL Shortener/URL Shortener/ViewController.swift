@@ -14,14 +14,17 @@ class ViewController: UIViewController {
     @IBOutlet var copyButton: UIButton!
     @IBOutlet var openPageButton: UIButton!
     
-    var OKresponse: ResponseDataOK?
+    var currentOKResponse: ResponseDataOK?
     var notOKResponse: ResponseDataNotOK?
+    var recentLinks = [ResponseDataOK]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "URL shortener"
+        loadData()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareTapped))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Recent", style: .plain, target: self, action: #selector(recentTapped))
         submitButton.layer.cornerRadius = 10
         copyButton.layer.cornerRadius = 10
         openPageButton.layer.cornerRadius = 10
@@ -32,13 +35,13 @@ class ViewController: UIViewController {
     }
     
     @IBAction func copyTapped(_ sender: Any) {
-        guard let link = OKresponse?.link else { return }
+        guard let link = currentOKResponse?.link else { return }
         UIPasteboard.general.string = link
         showAlert(title: "Short URL is generated and copied to clipboard", message: link)
     }
     
     @IBAction func openPageTapped(_ sender: Any) {
-        guard let link = OKresponse?.link else { return }
+        guard let link = currentOKResponse?.link else { return }
         guard let url = URL(string: link) else { return }
         UIApplication.shared.open(url)
     }
@@ -50,7 +53,7 @@ class ViewController: UIViewController {
     }
     
     @objc func shareTapped() {
-        guard let link = OKresponse?.link else { return }
+        guard let link = currentOKResponse?.link else { return }
         let vc = UIActivityViewController(activityItems: ["Here is my short link:\n\(link)"], applicationActivities: [])
         vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
         present(vc, animated: true)
@@ -60,7 +63,7 @@ class ViewController: UIViewController {
         let decoder = JSONDecoder()
         
         if let jsonResponse = try? decoder.decode(ResponseDataOK.self, from: data) {
-            OKresponse = jsonResponse
+            currentOKResponse = jsonResponse
             return true
         } else if let jsonResponse = try? decoder.decode(ResponseDataNotOK.self, from: data) {
             notOKResponse = jsonResponse
@@ -94,8 +97,10 @@ class ViewController: UIViewController {
                 return
             }
             if self!.parseIsDataOK(data: data) {
+                self?.recentLinks.append(self!.currentOKResponse!)
+                self?.saveData()
                 DispatchQueue.main.async {
-                    self?.shortLinkView.text = self?.OKresponse?.link
+                    self?.shortLinkView.text = self?.currentOKResponse?.link
                     self?.reloadInputViews()
                 }
             } else {
@@ -105,6 +110,36 @@ class ViewController: UIViewController {
             }
         }
         task.resume()
+    }
+    
+    @objc func recentTapped() {
+        if let vc = storyboard?.instantiateViewController(identifier: "Detail") as? recentTableView {
+            vc.recentLinks = recentLinks
+            navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+    func saveData() {
+        let jsonEncoder = JSONEncoder()
+        
+        if let savedLinks = try? jsonEncoder.encode(recentLinks) {
+            let defaults = UserDefaults.standard
+            defaults.set(savedLinks, forKey: "links")
+        } else {
+            print("Failed to save link.")
+        }
+    }
+    
+    func loadData() {
+        let defaults = UserDefaults.standard
+        if let savedLinks = defaults.object(forKey: "links") as? Data {
+            let jsonDecoder = JSONDecoder()
+            do {
+                recentLinks = try jsonDecoder.decode([ResponseDataOK].self, from: savedLinks)
+            } catch {
+                print("Failed to load recent links.")
+            }
+        }
     }
 }
 

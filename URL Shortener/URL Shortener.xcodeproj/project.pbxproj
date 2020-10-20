@@ -14,6 +14,7 @@
 		9941ED76252DDB90009D2412 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9941ED74252DDB90009D2412 /* Main.storyboard */; };
 		9941ED78252DDB91009D2412 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9941ED77252DDB91009D2412 /* Assets.xcassets */; };
 		9941ED7B252DDB91009D2412 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9941ED79252DDB91009D2412 /* LaunchScreen.storyboard */; };
+		9949158A253EDDE200AF1EF9 /* recentTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99491589253EDDE200AF1EF9 /* recentTableView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		9941ED77252DDB91009D2412 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9941ED7A252DDB91009D2412 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9941ED7C252DDB91009D2412 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		99491589253EDDE200AF1EF9 /* recentTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = recentTableView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 				9941ED70252DDB90009D2412 /* SceneDelegate.swift */,
 				9941ED72252DDB90009D2412 /* ViewController.swift */,
 				992385F1253C51E800CCBCAC /* DataModel.swift */,
+				99491589253EDDE200AF1EF9 /* recentTableView.swift */,
 				9941ED74252DDB90009D2412 /* Main.storyboard */,
 				9941ED77252DDB91009D2412 /* Assets.xcassets */,
 				9941ED79252DDB91009D2412 /* LaunchScreen.storyboard */,
@@ -141,6 +144,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9941ED73252DDB90009D2412 /* ViewController.swift in Sources */,
+				9949158A253EDDE200AF1EF9 /* recentTableView.swift in Sources */,
 				992385F2253C51E800CCBCAC /* DataModel.swift in Sources */,
 				9941ED6F252DDB90009D2412 /* AppDelegate.swift in Sources */,
 				9941ED71252DDB90009D2412 /* SceneDelegate.swift in Sources */,
