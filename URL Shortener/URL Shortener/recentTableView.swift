@@ -25,4 +25,14 @@ class recentTableView: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return recentLinks.count
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let ac = UIAlertController(title: "Copy short URL for:", message: recentLinks[indexPath.row].long_url, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Copy link", style: .default, handler: { action in
+            let link = self.recentLinks[indexPath.row].link
+            UIPasteboard.general.string = link
+        }))
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(ac, animated: true)
+    }
 }

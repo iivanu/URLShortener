@@ -81,6 +81,10 @@ class ViewController: UIViewController {
         if !longURL.hasPrefix("https://") {
             longURL = "https://" + longURL
         }
+        
+        if !longURL.hasSuffix("/") {
+            longURL += "/"
+        }
         let json: [String: Any] = ["long_url": longURL, "domain": "bit.ly"]
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
 
@@ -97,8 +101,10 @@ class ViewController: UIViewController {
                 return
             }
             if self!.parseIsDataOK(data: data) {
-                self?.recentLinks.append(self!.currentOKResponse!)
-                self?.saveData()
+                if !self!.isLinkAlreadySaved(link: longURL) {
+                    self?.recentLinks.append(self!.currentOKResponse!)
+                    self?.saveData()
+                }
                 DispatchQueue.main.async {
                     self?.shortLinkView.text = self?.currentOKResponse?.link
                     self?.reloadInputViews()
@@ -140,6 +146,16 @@ class ViewController: UIViewController {
                 print("Failed to load recent links.")
             }
         }
+    }
+    
+    func isLinkAlreadySaved(link: String) -> Bool {
+        for item in recentLinks {
+            if item.long_url == link {
+                return true
+            }
+        }
+        
+        return false
     }
 }
 
