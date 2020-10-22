@@ -21,10 +21,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "URL shortener"
         loadData()
+        title = "URL shortener"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareTapped))
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Recent", style: .plain, target: self, action: #selector(recentTapped))
+        
         submitButton.layer.cornerRadius = 10
         copyButton.layer.cornerRadius = 10
         openPageButton.layer.cornerRadius = 10
@@ -102,7 +103,7 @@ class ViewController: UIViewController {
             }
             if self!.parseIsDataOK(data: data) {
                 if !self!.isLinkAlreadySaved(link: longURL) {
-                    self?.recentLinks.append(self!.currentOKResponse!)
+                    self?.recentLinks.insert(self!.currentOKResponse!, at: 0)
                     self?.saveData()
                 }
                 DispatchQueue.main.async {

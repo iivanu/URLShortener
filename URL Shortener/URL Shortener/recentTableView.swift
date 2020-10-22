@@ -13,6 +13,7 @@ class recentTableView: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Recent URLs"
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
