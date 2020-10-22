@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     @IBOutlet var copyButton: UIButton!
     @IBOutlet var openPageButton: UIButton!
     
-    var currentOKResponse: ResponseDataOK?
+    var currentResponse: ResponseDataOK?
     var notOKResponse: ResponseDataNotOK?
     var recentLinks = [ResponseDataOK]()
     
@@ -36,13 +36,13 @@ class ViewController: UIViewController {
     }
     
     @IBAction func copyTapped(_ sender: Any) {
-        guard let link = currentOKResponse?.link else { return }
+        guard let link = currentResponse?.link else { return }
         UIPasteboard.general.string = link
         showAlert(title: "Short URL is generated and copied to clipboard", message: link)
     }
     
     @IBAction func openPageTapped(_ sender: Any) {
-        guard let link = currentOKResponse?.link else { return }
+        guard let link = currentResponse?.link else { return }
         guard let url = URL(string: link) else { return }
         UIApplication.shared.open(url)
     }
@@ -51,26 +51,6 @@ class ViewController: UIViewController {
         let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "OK", style: .default))
         present(ac, animated: true)
-    }
-    
-    @objc func shareTapped() {
-        guard let link = currentOKResponse?.link else { return }
-        let vc = UIActivityViewController(activityItems: ["Here is my short link:\n\(link)"], applicationActivities: [])
-        vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
-        present(vc, animated: true)
-    }
-    
-    func parseIsDataOK(data: Data) -> Bool {
-        let decoder = JSONDecoder()
-        
-        if let jsonResponse = try? decoder.decode(ResponseDataOK.self, from: data) {
-            currentOKResponse = jsonResponse
-            return true
-        } else if let jsonResponse = try? decoder.decode(ResponseDataNotOK.self, from: data) {
-            notOKResponse = jsonResponse
-        }
-        
-        return false
     }
     
     func fetchData(longURL: String?) {
@@ -86,16 +66,8 @@ class ViewController: UIViewController {
         if !longURL.hasSuffix("/") {
             longURL += "/"
         }
-        let json: [String: Any] = ["long_url": longURL, "domain": "bit.ly"]
-        let jsonData = try? JSONSerialization.data(withJSONObject: json)
 
-        var request = URLRequest(url: apiURL)
-        request.httpMethod = "POST"
-        request.httpBody = jsonData
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue( "Bearer \(token)", forHTTPHeaderField: "Authorization")
-
+        let request = fillRequest(longURL: longURL)
         let task = URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
             guard let data = data, error == nil else {
                 self?.showAlert(title: "Error", message: error?.localizedDescription)
@@ -103,11 +75,11 @@ class ViewController: UIViewController {
             }
             if self!.parseIsDataOK(data: data) {
                 if !self!.isLinkAlreadySaved(link: longURL) {
-                    self?.recentLinks.insert(self!.currentOKResponse!, at: 0)
+                    self?.recentLinks.insert(self!.currentResponse!, at: 0)
                     self?.saveData()
                 }
                 DispatchQueue.main.async {
-                    self?.shortLinkView.text = self?.currentOKResponse?.link
+                    self?.shortLinkView.text = self?.currentResponse?.link
                     self?.reloadInputViews()
                 }
             } else {
@@ -119,22 +91,41 @@ class ViewController: UIViewController {
         task.resume()
     }
     
-    @objc func recentTapped() {
-        if let vc = storyboard?.instantiateViewController(identifier: "Detail") as? recentTableView {
-            vc.recentLinks = recentLinks
-            navigationController?.pushViewController(vc, animated: true)
-        }
+    func fillRequest(longURL: String) -> URLRequest{
+        let json: [String: Any] = ["long_url": longURL, "domain": "bit.ly"]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+
+        var request = URLRequest(url: apiURL)
+        request.httpMethod = "POST"
+        request.httpBody = jsonData
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.setValue( "Bearer \(token)", forHTTPHeaderField: "Authorization")
+        
+        return request
     }
     
-    func saveData() {
-        let jsonEncoder = JSONEncoder()
+    func parseIsDataOK(data: Data) -> Bool {
+        let decoder = JSONDecoder()
         
-        if let savedLinks = try? jsonEncoder.encode(recentLinks) {
-            let defaults = UserDefaults.standard
-            defaults.set(savedLinks, forKey: "links")
-        } else {
-            print("Failed to save link.")
+        if let jsonResponse = try? decoder.decode(ResponseDataOK.self, from: data) {
+            currentResponse = jsonResponse
+            return true
+        } else if let jsonResponse = try? decoder.decode(ResponseDataNotOK.self, from: data) {
+            notOKResponse = jsonResponse
         }
+        
+        return false
+    }
+    
+    func isLinkAlreadySaved(link: String) -> Bool {
+        for item in recentLinks {
+            if item.long_url == link {
+                return true
+            }
+        }
+        
+        return false
     }
     
     func loadData() {
@@ -149,14 +140,29 @@ class ViewController: UIViewController {
         }
     }
     
-    func isLinkAlreadySaved(link: String) -> Bool {
-        for item in recentLinks {
-            if item.long_url == link {
-                return true
-            }
-        }
+    func saveData() {
+        let jsonEncoder = JSONEncoder()
         
-        return false
+        if let savedLinks = try? jsonEncoder.encode(recentLinks) {
+            let defaults = UserDefaults.standard
+            defaults.set(savedLinks, forKey: "links")
+        } else {
+            print("Failed to save link.")
+        }
+    }
+    
+    @objc func shareTapped() {
+        guard let link = currentResponse?.link else { return }
+        let vc = UIActivityViewController(activityItems: ["Here is my short link:\n\(link)"], applicationActivities: [])
+        vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        present(vc, animated: true)
+    }
+    
+    @objc func recentTapped() {
+        if let vc = storyboard?.instantiateViewController(identifier: "Detail") as? recentTableView {
+            vc.recentLinks = recentLinks
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
 }
 
