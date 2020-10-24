@@ -18,7 +18,12 @@ class recentTableView: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = recentLinks[indexPath.row].long_url
+        var text = recentLinks[indexPath.row].long_url
+        text = text.deletingPrefix("https://")
+        text = text.deletingPrefix("www.")
+        text = text.deletingSufix("/")
+        text = text.capitalizingFirstLetter()
+        cell.textLabel?.text = text
         cell.textLabel?.numberOfLines = 0
         return cell
     }
