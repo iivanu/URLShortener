@@ -151,14 +151,14 @@ class ViewController: UIViewController {
         }
     }
     
-    @objc func shareTapped() {
+    @objc private func shareTapped() {
         guard let link = currentResponse?.link else { return }
         let vc = UIActivityViewController(activityItems: ["Here is my short link:\n\(link)"], applicationActivities: [])
         vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
         present(vc, animated: true)
     }
     
-    @objc func recentTapped() {
+    @objc private func recentTapped() {
         if let vc = storyboard?.instantiateViewController(identifier: "Detail") as? recentTableView {
             vc.recentLinks = recentLinks
             navigationController?.pushViewController(vc, animated: true)
