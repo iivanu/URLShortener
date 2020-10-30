@@ -19,6 +19,6 @@ extension String {
     }
     
     func capitalizingFirstLetter() -> String {
-        return prefix(1).capitalized + dropFirst()
+        return self.prefix(1).capitalized + dropFirst()
     }
 }
