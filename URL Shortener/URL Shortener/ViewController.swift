@@ -62,6 +62,11 @@ class ViewController: UIViewController {
     func fetchData(longURL: String?) {
         guard var longURL = longURL else { return }
         
+        guard ReachabilityTest.isConnectedToNetwork() else {
+            self.showAlert(title: "No internet connection!", message: "Please check connection and try again.")
+            return
+        }
+        
         guard !longURL.isEmpty else {
             self.showAlert(title: "URL is empty!", message: "Please enter valid URL.")
             return
@@ -168,7 +173,7 @@ class ViewController: UIViewController {
     }
     
     @objc private func recentTapped() {
-        guard let vc = storyboard?.instantiateViewController(identifier: "Detail") as? recentTableView else {
+        guard let vc = storyboard?.instantiateViewController(identifier: "Detail") as? RecentTableView else {
             return
         }
         vc.recentLinks = self.recentLinks
