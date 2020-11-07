@@ -1,5 +1,5 @@
 //
-//  recentTableView.swift
+//  RecentTableView.swift
 //  URL Shortener
 //
 //  Created by Ivan Ivanušić on 20/10/2020.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class recentTableView: UITableViewController {
+class RecentTableView: UITableViewController {
     lazy var recentLinks: [ResponseDataOK] = []
     
     override func viewDidLoad() {
