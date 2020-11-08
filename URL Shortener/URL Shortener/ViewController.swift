@@ -8,7 +8,7 @@
 import UIKit
 import SafariServices
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, ReturnDataDelegate {
     @IBOutlet weak var urlEntry: UITextField!
     @IBOutlet weak var shortLinkView: UITextField!
     @IBOutlet weak var submitButton: UIButton!
@@ -165,6 +165,11 @@ class ViewController: UIViewController {
         defaults.set(savedLinks, forKey: "links")
     }
     
+    func returnData(recentLinksReturned: [ResponseDataOK]) {
+        recentLinks = recentLinksReturned
+        saveData()
+    }
+    
     @objc private func shareTapped() {
         guard let link = self.currentResponse?.link else { return }
         let vc = UIActivityViewController(activityItems: ["Here is my short link:\n\(link)"], applicationActivities: [])
@@ -176,6 +181,7 @@ class ViewController: UIViewController {
         guard let vc = storyboard?.instantiateViewController(identifier: "Detail") as? RecentTableView else {
             return
         }
+        vc.returnDataDelegate = self
         vc.recentLinks = self.recentLinks
         self.navigationController?.pushViewController(vc, animated: true)
     }
