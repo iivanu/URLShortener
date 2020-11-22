@@ -7,12 +7,20 @@
 
 import UIKit
 
+protocol ReturnDataDelegate {
+    func returnData(recentLinksReturned: [ResponseDataOK])
+}
+
 class RecentTableView: UITableViewController {
     lazy var recentLinks: [ResponseDataOK] = []
+    var returnDataDelegate: ReturnDataDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Recent URLs"
+        self.navigationItem.hidesBackButton = true
+        let newBackButton = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(back))
+        self.navigationItem.leftBarButtonItem = newBackButton
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -44,7 +52,23 @@ class RecentTableView: UITableViewController {
         self.present(ac, animated: true)
     }
     
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            recentLinks.remove(at: indexPath.row)
+            tableView.reloadData()
+        }
+    }
+    
     func isRowValid(_ row: Int) -> Bool {
         return 0 <= row && row <= (self.recentLinks.count - 1)
+    }
+    
+    @objc func back() {
+        returnDataDelegate.returnData(recentLinksReturned: recentLinks)
+        self.navigationController?.popViewController(animated: true)
     }
 }
